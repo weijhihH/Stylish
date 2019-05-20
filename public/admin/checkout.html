@@ -137,10 +137,10 @@
                 data.order.list[0].size = 'M'
                 data.order.list[0].qty = '1'
                 const data_json = JSON.stringify(data);
-                console.log('type data', typeof data);
-                console.log('type data_json', typeof data_json);
+                // console.log('type data', typeof data);
+                // console.log('type data_json', typeof data_json);
                 const accessToken = getCookie('access_token');
-                console.log('accessToken is: ', accessToken)
+                // console.log('accessToken is: ', accessToken)
                 function getCookie(cname) {  // cookies checkd, cname input cookie_token_name
                 let name = cname + "=";
                 const decodedCookie = decodeURIComponent(document.cookie);
@@ -167,7 +167,7 @@
                 xhr.setRequestHeader("Authorization", 'Bearer ' + accessToken);
                 xhr.send(data_json);
                 alert('get prime 成功，prime: ' + result.card.prime)
-                console.log('data_json',data_json)
+                // console.log('data_json',data_json)
             })
             }
 

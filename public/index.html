@@ -39,10 +39,6 @@
                 <h3 class ="header_subtitle">不朽《與自己和好如初》 </h3>
             </div>
             <div class="header_nav_dot">
-                <!-- <li></li>
-                <li></li>
-                <li></li>
-                <li></li> -->
             </div>
         </div>
         <main class="main-content">
@@ -70,21 +66,14 @@
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
             if(xhr.readyState ===4 && xhr.status === 200){
-                console.log('result of xhr', xhr.responseText)
-                console.log('typeofresult of xhr', typeof xhr.responseText)
                 let result = JSON.parse(xhr.responseText)
-                console.log('result of xhr', result)
-                console.log('typeofresult of xhr', typeof result)
                 //use forEach to do this array
                 let letHtmlContent ='';
                 let count = 0;
                 result.data.forEach(arr => {
-                    console.log('data length', result.data.length)
-                    console.log('arr: ', arr)
                     letHtmlContent +=  `<div class="div_content"><img class="main_product_img" src="${arr.main_image}">`    
                     letHtmlContent += `<div class="main_color_code">`
                         arr.colors.forEach(arr2 => {
-                            console.log('arr2: ', arr2)
                             letHtmlContent +=  `<a class="main_product_variant_colors" style="background-color: #${arr2.code}" href=""></a>` 
                         });
                         letHtmlContent += `</div>`
@@ -94,16 +83,10 @@
                         count += 1
                 } );
                 document.querySelector('.main-content').innerHTML = letHtmlContent;
-
-                
             }
         }
         xhr.open("GET", "/api/1.0/products/all")
         xhr.send()
-        
-
-        
-        
         </script>
     </body>
 </html>
