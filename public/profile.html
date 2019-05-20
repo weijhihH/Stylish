@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ThankYou Page</title>
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
+        <link rel='stylesheet' href='style/style.css' type='text/css'>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body class="profile_body">
+        <header>
+            <div class="header">
+                <div class="header_left_area">
+                    <img class="logo" src="image/logo.png">
+                    <div class="wraped_product_list">
+                        <a href="" class="product_list_font">女裝</a>
+                        <p class="product_list_space">|</p>
+                        <a href=""  class="product_list_font">男裝</a>
+                        <p class="product_list_space">|</p>
+                        <a href=""  class="product_list_font">配件</a>
+                    </div>
+                </div>
+                <div class="wraped_product_nav_bar">
+                        <div class="header_right_div">
+                        <input class="header_right_input" type="text">
+                        <a href=""><img class="header_right_img_search" src="image/search.png"></input></a>
+                        </div>
+                        <a href=""><img class="header_right_img_cart-romove" src="image/cart.png"></a>
+                        <a href=""><img class="header_right_img_member" src="image/member.png"></a>
+                </div>
+            </div>
+        </header>
+        <div class = "base"></div>
+        <div class = "wraped_user_profile">
+            <h3 class="user_profile_header"></h3>
+            <p class="user_profile_id"></p>
+            <p class="user_profile_name"></p>
+            <p class="user_profile_email"></p>
+        </div>
+        <div class=  "wraped_user_signup">
+            <!-- <h1>查無使用者資料, 請重新註冊或登入</h1> -->
+            <form class="user_signup_form">
+                <h1>註冊</h1>
+                <p>User Name</p>
+                <input type="text" name="user_signup_name" class="user_signup_name"/>
+                <p>User Email</p>
+                <input type="text" name="user_signup_email" class="user_signup_email"/>
+                <p>User Password</p>
+                <input type="text" name="user_signup_password" class="user_signup_password"/>
+                <input class = "user_signup_button" type="button" value = "送出註冊" />
+            </form>
+            <form class="user_signin_form">
+                    <h1>登入</h1>
+                    <p>User Email</p>
+                    <input type="text" name="user_signin_email" class="user_signin_email"/>
+                    <p>User Password</p>
+                    <input type="text" name="user_signin_password" class="user_signin_password"/>
+                    <input class = "user_signin_button" type="button" value = "送出登入" />
+            </form>
+        </div>
+
+
+        <footer >
+            <div class="bottom_left">
+                <a href="" class="footer_left">關於 Stylish</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">服務條款</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">隱私政策</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">聯絡我們</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">FAQ</a>
+            </div>
+            <div class="buttom_right">
+                <a href=""><img class="line_png" src="image/line.png"></a>
+                <a href=""><img class="twitter_png" src="image/twitter.png"></a>
+                <a href=""><img class="facebook_png" src="image/facebook.png"></a>
+                <p class="footer_right_text ">© 2018. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <script>
+        // 1. 檢查 有沒有存 access token, 沒有的話直接轉註冊/登入選項
+        let accessToken = getCookie('access_token');
+        console.log('accessToken: ', accessToken)
+        console.log('accessToken Length ', accessToken.length)
+        // 2. 有 access token 的話丟給後端檢查 
+        if(accessToken.length == 0){
+            document.querySelector('.wraped_user_signup').style.display = 'flex'; // 無 access token , 轉註冊/登入選項
+        } else {
+            // 2-1 比對資料庫有資料, 轉回 profile 資訊
+            let xhrCheckAccessToken = new XMLHttpRequest();
+            xhrCheckAccessToken.open("GET", "/api/1.0/user/profile");
+            console.log('accessToken: in xhr', accessToken)
+            xhrCheckAccessToken.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            xhrCheckAccessToken.send();
+            xhrCheckAccessToken.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let reusltOfProfile = JSON.parse(this.responseText)
+                    if(!reusltOfProfile.error){
+                        let user_id = reusltOfProfile.data.id
+                        let user_name = reusltOfProfile.data.name
+                        let user_email = reusltOfProfile.data.email
+                    renderToProfile (user_id,user_name,user_email) // render to profile information
+                    } else {
+                        // 2-2 比後端資料庫無資料, 轉回 註冊/登入選項
+                        alert ('資料庫比對無此使用者資料, 請重新註冊或登入')
+                        document.querySelector('.wraped_user_signup').style.display = 'flex';
+                    }
+                }
+            };			
+        }
+
+        // 註冊後將 profile 資料呈現在網頁上
+        document.querySelector('.user_signup_button').onclick = function (){
+			let name      = document.querySelector('.user_signup_name').value;
+			let email     = document.querySelector('.user_signup_email').value;
+			let password  = document.querySelector('.user_signup_password').value;
+			let requestData = {
+		        "name"      : name,
+		        "email"     : email,
+		        "password"  : password
+		    }
+		    let data = JSON.stringify(requestData);
+			let xhrSignUp = new XMLHttpRequest();
+			xhrSignUp.open("POST", "/api/1.0/user/signup", true);
+			xhrSignUp.setRequestHeader("Content-Type", "application/json");
+			xhrSignUp.onreadystatechange = function () {
+			    if (this.readyState === 4 && this.status === 200) {
+                    let reusltOfProfile = JSON.parse(this.responseText)
+                    console.log('reusltOfProfile : ', reusltOfProfile)
+                    if(reusltOfProfile.error){
+                        alert('註冊資訊有誤, 請重新確認內容')
+                    } else {
+                        let user_id = reusltOfProfile.data.user.id
+                        let user_name = reusltOfProfile.data.user.name
+                        let user_email = reusltOfProfile.data.user.email
+                        renderToProfile (user_id,user_name,user_email) // show new member's profile.
+                    }
+			    }
+			};			
+			xhrSignUp.send(data);
+        }
+
+        // 登入後使用 access_token render to profile api
+        document.querySelector('.user_signin_button').onclick = function(){
+            let email     = document.querySelector('.user_signin_email').value;
+            let password  = document.querySelector('.user_signin_password').value;
+            let requestData = {
+                "provider"  : "native",
+                "email"     : email,
+                "password"  : password
+            }
+            let reusltOfProfile = JSON.stringify(requestData);
+            console.log('typeof requestData:',typeof reusltOfProfile)
+            console.log(reusltOfProfile);
+            let xhrSignin = new XMLHttpRequest();
+            xhrSignin.open("POST", "/api/1.0/user/signin", true);
+            xhrSignin.setRequestHeader("Content-Type", "application/json");
+            xhrSignin.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                let reusltOfProfile = JSON.parse(this.responseText)
+                    if(reusltOfProfile.error){
+                        alert('無此使用者')
+                    } else {
+                        console.log('頁面重新整理...讀取個人資訊')
+                        location.reload();
+                    }
+                }
+            };			
+            xhrSignin.send(reusltOfProfile);
+        }
+
+
+
+
+
+
+        
+        // function , 用來擷取 cookie 內容用
+        function getCookie(cname) {  // cookies checkd, cname input cookie_token_name
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        // function , 轉入 profile 
+        function renderToProfile (id,name,email){
+                document.querySelector('.wraped_user_profile').style.display = 'flex';
+                document.querySelector('.wraped_user_signup').style.display = 'none';
+                document.querySelector('.user_profile_header').textContent = 'Wellcome back!'
+                document.querySelector('.user_profile_id').textContent = `User ID : ${id}`
+                document.querySelector('.user_profile_name').textContent = `User Name : ${name}`
+                document.querySelector('.user_profile_email').textContent = `User Email: ${email}`
+        }
+
+        
+        </script>
+    </body>
+</html>

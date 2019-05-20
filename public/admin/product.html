@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>商品填寫</title>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
+    <style>
+    *{
+        margin : 0;
+    }
+    input.no-display{
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>請填寫商品資訊</h1>
+        <form action="/api/1.0/admin/product" method="POST" enctype="multipart/form-data">
+        <ul>
+        <li>title (商品名稱):<input type="text" name="title" required></li>
+        <li>Product List (產品分類,請輸入 women, men, accessories ):<input type="text" name="productType" required></li>
+        <li>description (商品描述):<input type="text" name="description" required></li>
+        <li>price (價錢):<input type="text" name="price" required></li>
+        <li>texture(成份):<input type="text" name="texture" required></li>
+        <li>wash (水洗標):<input type="text" name="wash" required></li>
+        <li>place (生產地):<input type="text" name="place" required></li>
+        <li>note (注意事項):<input type="text" name="note" required></li>
+        <li>story (商品故事):<input type="text" name="story" required></li>
+        <li>main_image(主圖,最多一張):<input class="main_image" type="file" name="main_picture" required></li>
+        <li><p>additional_image (補充圖片，最只能放十張, 後面敘述也要填寫):</p><input type="button" onclick="addImage()" value="按我新增圖片"></li>
+        <div class="addImage">
+            <input class="additional_image" type="file" name="additional_image"><input type="text" name="image_story">Image_story (照片敘述1):<br/>
+            <input class="additional_image" type="file" name="additional_image"><input type="text" name="image_story">Image_story (照片敘述2):<br/>
+        </div>
+
+        <br/><input type="button" onclick="addStockInformation()" value="按我新增選項"><br/>
+        <div class="variant">
+                <h2>Set-1</h2>
+                <p>color (顏色):</p> <input type="text" name="color" required>
+                <p>colorCode (ex:000000):</p> <input type="text" name="color_code" required>
+                <p>size (尺寸):</p> <input type="text" name="size" required>
+                <p>stock (庫存):</p> <input type="text" name="stock" required>
+                <h2>Set-2</h2>
+                <p>color (顏色):</p> <input type="text" name="color" >
+                <p>colorCode (ex:000000):</p> <input type="text" name="color_code">
+                <p>size (尺寸):</p> <input type="text" name="size">
+                <p>stock (庫存):</p> <input type="text" name="stock">
+        </div>
+        <input type="submit" value="完成送出">
+        </ul>
+        </form>
+    </div>
+</body>
+    <script>
+        let imageIndex=2
+        let stockIndex=2
+        function addImage(){
+            imageIndex+=1;
+            const addImage = document.createElement('INPUT');
+            const addImageDescription = document.createElement('INPUT');
+            const addText = document.createTextNode(`Image_story (照片敘述${imageIndex}):`);
+            const linebreak = document.createElement('BR');
+            const addImageClass = document.querySelector('.addImage')
+            addImage.setAttribute("class","main_image")
+            addImage.setAttribute("type","file")
+            addImage.setAttribute("name","additional_image")
+            addImageDescription.setAttribute("type","text")
+            addImageDescription.setAttribute("name","image_story")
+            addImageClass.appendChild(addImage);
+            addImageClass.appendChild(addImageDescription);
+            addImageClass.appendChild(addText);
+            addImageClass.appendChild(linebreak);
+        }
+        function addStockInformation(){
+            stockIndex+=1;
+            let h2 = document.createElement('h2');
+            let pColor = document.createElement('p');
+            let pColorCode = document.createElement('p');
+            let pSize = document.createElement('p');
+            let pStock = document.createElement('p');
+            const headerContent = document.createTextNode(`Set-${stockIndex}`)
+            const addContentCode = document.createTextNode('colorCode (ex:000000):');
+            const addContentColor = document.createTextNode('color (顏色):');
+            const addContentSize = document.createTextNode('size (尺寸):');
+            const addContentStock = document.createTextNode('stock (庫存):');
+            let addOptionClass = document.querySelector('.variant')
+            let addColor = document.createElement('INPUT');
+            let addColorCode = document.createElement('INPUT');
+            let addSize = document.createElement('INPUT');
+            let addStock = document.createElement('INPUT');
+            h2.appendChild(headerContent)
+            pColor.appendChild(addContentColor)
+            pColorCode.appendChild(addContentCode)
+            pSize.appendChild(addContentSize)
+            pStock.appendChild(addContentStock)
+            addColor.setAttribute("type","text");
+            addColor.setAttribute("name","color");
+            addColorCode.setAttribute("type","text");
+            addColorCode.setAttribute("name","color_code");
+            addSize.setAttribute("type","text");
+            addSize.setAttribute("name","size");
+            addStock.setAttribute("type","text");
+            addStock.setAttribute("name","stock");
+            addOptionClass.appendChild(h2);
+            addOptionClass.appendChild(pColor);
+            addOptionClass.appendChild(addColor);
+            addOptionClass.appendChild(pColorCode);
+            addOptionClass.appendChild(addColorCode);
+            addOptionClass.appendChild(pSize);
+            addOptionClass.appendChild(addSize);
+            addOptionClass.appendChild(pStock);
+            addOptionClass.appendChild(addStock);
+        }
+    </script>
+</html>

@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Profile Page</title>
+        <style>
+            *{
+                margin : 0;
+            }
+            </style>
+    </head>
+    <body>
+        <h1>產生 Profile</h1>
+        <form type="POST" >
+            <input class = "button" type="button" value = "產生 Profile" />
+            </br>
+            <h2>Response result:</h2>
+            </br>
+            <p class ="responseText"></p>
+        </form>
+        <script>
+            document.querySelector('.button').addEventListener("click", function(){
+                let accesstoken = getCookie('access_token');
+                console.log('accesstoken is: ', accesstoken)
+                let xhr = new XMLHttpRequest();
+                function getCookie(cname) {  // cookies checkd, cname input cookie_token_name
+                    let name = cname + "=";
+                    const decodedCookie = decodeURIComponent(document.cookie);
+                    const ca = decodedCookie.split(';');
+                    for(let i = 0; i <ca.length; i++) {
+                        let c = ca[i];
+                        while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                        }
+                        if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                        }
+                    }
+                    return "";
+                }
+                console.log('check cookie', getCookie('access_token'))
+                xhr.open("GET", "/api/1.0/user/profile", true);
+                xhr.setRequestHeader('Authorization', 'Bearer ' + accesstoken);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.querySelector('.responseText').innerText = xhr.responseText;
+                    }
+                };			
+                xhr.send();
+            });
+            
+            
+            
+            
+            
+
+        </script>
+    </body>
+</html>

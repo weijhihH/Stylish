@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Campaign Table</title>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
+    <style>
+    *{
+      margin : 0;
+    }
+    li{
+      margin : 20px;
+    }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <h1>Fill in Campaign Informations</h1>
+        <form action="/api/1.0/admin/campaign" method="POST" enctype="multipart/form-data">
+        <ul>
+          <li>product_id (商品id編號):</br><input type="text" name="product_id" required></li>
+          <li>image(插入圖片):</br><input class="picture" type="file" name="picture" required></li>
+          <li>story (圖片描述):</br><textarea rows="4" cols="50" name="story" required></textarea></li>
+          <input type="submit" value="完成送出">
+          </ul>
+        </form>
+    </div>
+</body>
+</html>

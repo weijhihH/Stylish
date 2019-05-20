@@ -1,0 +1,176 @@
+<html>
+    <head>
+        <title>Check Out Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <style>
+            *{
+                margin : 0;
+            }
+            .tpfield {
+                height: 40px;
+                width: 300px;
+                border: 1px solid gray;
+                margin: 5px 0;
+                padding: 5px;
+            }
+            /* Bootstrap 的 focus style */
+            .tappay-field-focus {
+                border-color: #66afe9;
+                outline: 0;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Load TapPay SDK and initialize TapPay SDK -->
+        <script src="https://js.tappaysdk.com/tpdirect/v4"></script>
+        <script>
+            TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox')
+        </script>
+        <h1>請填寫信用卡付款資訊</h1>
+        <div class ="pay-form">
+        <form>
+            <div class="tpfield" id="card-number"></div>
+            <div class="tpfield" id="card-expiration-date"></div>
+            <div class="tpfield" id="card-ccv"></div>
+            <button class = "button" type="submit" value = "submit" > 送出
+        </form>
+        <p id = "curl"></p>
+        <footer>
+        <p class = "result"></p>
+        </footer>
+        <script>
+                TPDirect.card.setup({
+                fields: {
+                    number: {
+                        // css selector
+                        element: '#card-number',
+                        placeholder: '**** **** **** ****'
+                    },
+                    expirationDate: {
+                        // DOM object
+                        element: document.getElementById('card-expiration-date'),
+                        placeholder: 'MM / YY'
+                    },
+                    ccv: {
+                        element: '#card-ccv',
+                        placeholder: '後三碼'
+                    }
+                },
+                styles: {
+                    // Style all elements
+                    'input': {
+                        'color': 'gray'
+                    },
+                    // Styling ccv field
+                    'input.cvc': {
+                        // 'font-size': '16px'
+                    },
+                    // Styling expiration-date field
+                    'input.expiration-date': {
+                        // 'font-size': '16px'
+                    },
+                    // Styling card-number field
+                    'input.card-number': {
+                        // 'font-size': '16px'
+                    },
+                    // style focus state
+                    ':focus': {
+                        // 'color': 'black'
+                    },
+                    // style valid state
+                    '.valid': {
+                        'color': 'green'
+                    },
+                    // style invalid state
+                    '.invalid': {
+                        'color': 'red'
+                    },
+                    // Media queries
+                    // Note that these apply to the iframe, not the root window.
+                    '@media screen and (max-width: 400px)': {
+                        'input': {
+                            'color': 'orange'
+                        }
+                    }
+                }
+            })
+            document.querySelector('.button').onclick = function (event) {
+                event.preventDefault();
+                // console.log('2222',TPDirect.card.onUpdate())
+                const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+                // console.log('目前狀態',tappayStatus)
+                            // Check TPDirect.card.getTappayFieldsStatus().canGetPrime before TPDirect.card.getPrime
+            if (tappayStatus.canGetPrime === false) {
+                alert('can not get prime')
+                return
+            }
+            // Get prime
+            TPDirect.card.getPrime(function (result) {
+                if (result.status !== 0) {
+                    alert('get prime error ' + result.msg)
+                    return
+                }
+                let data = {};
+                data.prime = `${result.card.prime}`;
+                data.order = {};
+                data.order.shipping = 'delivery';
+                data.order.payment = 'credit_card';
+                data.order.subtotal = '10000';
+                data.order.freight = '100';
+                data.order.total = '11000';
+                data.order.recipient = {};
+                data.order.recipient.name = "Andrew";
+                data.order.recipient.phone = "0921123456";
+                data.order.recipient.email = "123@456.com";
+                data.order.recipient.address = "Taipei";
+                data.order.recipient.time = "morning";
+                data.order.list = [];
+                data.order.list.push({});
+                data.order.list[0].id = '123'
+                data.order.list[0].name = '長版大衣'
+                data.order.list[0].price = '10000'
+                data.order.list[0].color = {}
+                data.order.list[0].color.name = '白色'
+                data.order.list[0].color.code = 'ffffff'
+                data.order.list[0].size = 'M'
+                data.order.list[0].qty = '1'
+                const data_json = JSON.stringify(data);
+                console.log('type data', typeof data);
+                console.log('type data_json', typeof data_json);
+                const accessToken = getCookie('access_token');
+                console.log('accessToken is: ', accessToken)
+                function getCookie(cname) {  // cookies checkd, cname input cookie_token_name
+                let name = cname + "=";
+                const decodedCookie = decodeURIComponent(document.cookie);
+                const ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+                }
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function (){
+                    if (xhr.readyState === 4 && xhr.status === 200){
+                        document.querySelector('.result').innerHTML = xhr.responseText;
+                    }
+                }
+                xhr.open('POST','/api/1.0/order/checkout', true)
+                xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+                xhr.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+                xhr.send(data_json);
+                alert('get prime 成功，prime: ' + result.card.prime)
+                console.log('data_json',data_json)
+            })
+            }
+
+        </script>
+    </body>
+</html>

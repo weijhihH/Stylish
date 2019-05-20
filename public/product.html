@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home Page</title>
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css">
+        <link rel='stylesheet' href='style/style.css' type='text/css'>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <div class="header_left_area">
+                    <img class="logo" src="image/logo.png">
+                    <div class="wraped_product_list">
+                        <a href="" class="product_list_font">女裝</a>
+                        <p class="product_list_space">|</p>
+                        <a href=""  class="product_list_font">男裝</a>
+                        <p class="product_list_space">|</p>
+                        <a href=""  class="product_list_font">配件</a>
+                    </div>
+                </div>
+                <div class="wraped_product_nav_bar">
+                        <div class="header_right_div">
+                        <input class="header_right_input" type="text">
+                        <a href=""><img class="header_right_img_search" src="image/search.png"></input></a>
+                        </div>
+                        <a href=""><img class="header_right_img_cart-romove" src="image/cart.png"></a>
+                        <a href=""><img class="header_right_img_member" src="image/member.png"></a>
+                </div>
+            </div>
+        </header>
+        <div class = "base"></div>
+        <main>
+            <div class = "product_details_content_upper">
+                <div class="product_details_main_image"></div>
+                <!-- <a href=""><img class="product_details_content_imgage" src="image/main.jpg"></a> -->
+                <div class="product_details_information">
+                    <h3 class= "product_details_name"></h3>
+                    <p class= "product_details_id"></p>
+                    <p class= "product_details_price"></p>
+                    <hr class="product_details_hr">   
+                    <li class="product_details_color">
+                        <!-- <ul class="product_details_text ">顏色｜</ul>
+                        <ul class="product_details_color_options"></ul>
+                        <ul class="product_details_color_options"></ul> -->
+                    </li>
+                    <li class="product_details_size">
+                        <!-- <ul class="product_details_text ">尺寸｜</ul>
+                        <ul class="product_details_size_options">S</ul>
+                        <ul class="product_details_size_options">L</ul> -->
+                    </li>
+                    <div class="product_details_qtys">
+                        <p class="product_details_text ">數量｜</p>
+                        <div class="product_details_qty_bar">
+                        <a href=""><img class="product_details_qty_icon_minus" src="image/bitmap@2x 2.png"></a>
+                        <p class="product_details_qty_options">1</p>
+                        <a href=""><img class="product_details_content_plus" src="image/bitmap@2x.png"></a>
+                        </div>
+                    </div>
+                    <input class="product_details_check_button" value="加入購物車">
+                    <div>
+                        <p class="product_details_note"></p>
+                        <p class="product_details_texture"></p>
+                        <p class="product_details_description"></p>
+                        <p class="product_details_place"></p>
+                        <p class="product_details_place"></p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class = "product_details_content_lower">
+                    <div class="product_details_hr_div">
+                        <p class="product_details_hr_div_context">細部說明</p>
+                        <hr class="product_details_hr_div_hr">
+                    </div>
+            </div>
+            <article class="product_details_article">
+                <!-- <p class="product_details_article_text">O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen jersey, making it even lighter for those who prefer their summer style extra-breezy. </p>
+                <a href=""><img class="product_details_article_image" src="image/1.jpg"></a>
+                <p class="product_details_article_text">O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen jersey, making it even lighter for those who prefer their summer style extra-breezy. </p>
+                <a href=""><img class="product_details_article_image" src="image/1.jpg"></a>
+                <p class="product_details_article_text">O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen jersey, making it even lighter for those who prefer their summer style extra-breezy. </p>
+                <a href=""><img class="product_details_article_image" src="image/1.jpg"></a> -->
+
+            </article>
+        </main>
+        <div class="wraped_tap_pay" >
+            <form>
+                    <p class="tap_pay_text">Card Number</p>
+                    <div class="tpfield" id="card-number"></div>
+                    <p class="tap_pay_text">Expiration Date</p>
+                    <div class="tpfield" id="card-expiration-date"></div>
+                    <p>CCV Number</p>
+                    <div class="tpfield" id="card-ccv"></div>
+                    <button class = "button tap-pay-button" type="submit" value = "submit"><p>送出</p>
+            </form>
+            <p id = "curl"></p>
+        </div>
+        <footer >
+            <div class="bottom_left">
+                <a href="" class="footer_left">關於 Stylish</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">服務條款</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">隱私政策</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">聯絡我們</a>
+                <p class="footer_left_space">|</p>
+                <a href="" class="footer_left">FAQ</a>
+            </div>
+            <div class="buttom_right">
+                <a href=""><img class="line_png" src="image/line.png"></a>
+                <a href=""><img class="twitter_png" src="image/twitter.png"></a>
+                <a href=""><img class="facebook_png" src="image/facebook.png"></a>
+                <p class="footer_right_text ">© 2018. All rights reserved.</p>
+            </div>
+            <script src="https://js.tappaysdk.com/tpdirect/v4"></script>
+            <script>
+                // tap-pay used
+                TPDirect.setupSDK(12348, 'app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF', 'sandbox')
+                TPDirect.card.setup({
+                fields: {
+                    number: {
+                        // css selector
+                        element: '#card-number',
+                        placeholder: '**** **** **** ****'
+                    },
+                    expirationDate: {
+                        // DOM object
+                        element: document.getElementById('card-expiration-date'),
+                        placeholder: 'MM / YY'
+                    },
+                    ccv: {
+                        element: '#card-ccv',
+                        placeholder: '後三碼'
+                    }
+                },
+                styles: {
+                    // Style all elements
+                    'input': {
+                        'color': 'gray'
+                    },
+                    // Styling ccv field
+                    'input.cvc': {
+                        // 'font-size': '16px'
+                    },
+                    // Styling expiration-date field
+                    'input.expiration-date': {
+                        // 'font-size': '16px'
+                    },
+                    // Styling card-number field
+                    'input.card-number': {
+                        // 'font-size': '16px'
+                    },
+                    // style focus state
+                    ':focus': {
+                        // 'color': 'black'
+                    },
+                    // style valid state
+                    '.valid': {
+                        'color': 'green'
+                    },
+                    // style invalid state
+                    '.invalid': {
+                        'color': 'red'
+                    },
+                    // Media queries
+                    // Note that these apply to the iframe, not the root window.
+                    '@media screen and (max-width: 400px)': {
+                        'input': {
+                            'color': 'orange'
+                        }
+                    }
+                }
+            })
+
+
+            document.querySelector('.button').onclick = function (event) {
+                event.preventDefault();
+
+                // console.log('2222',TPDirect.card.onUpdate())
+
+                const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+                // console.log('目前狀態',tappayStatus)
+                            // Check TPDirect.card.getTappayFieldsStatus().canGetPrime before TPDirect.card.getPrime
+            if (tappayStatus.canGetPrime === false) {
+                console.log('can not get prime')
+                alert('請確認付款資訊')
+                return
+            }
+
+            // Get prime
+            TPDirect.card.getPrime(function (result) {
+                if (result.status !== 0) {
+                    console.log('get prime error ' + result.msg)
+                    alert('付款失敗')
+                    return
+                }
+                let data = {};
+                data.prime = `${result.card.prime}`;
+                data.order = {};
+                data.order.shipping = 'delivery';
+                data.order.payment = 'credit_card';
+                data.order.subtotal = '10000';
+                data.order.freight = '100';
+                data.order.total = '11000';
+                data.order.recipient = {};
+                data.order.recipient.name = "Andrew";
+                data.order.recipient.phone = "0921123456";
+                data.order.recipient.email = "123@456.com";
+                data.order.recipient.address = "Taipei";
+                data.order.recipient.time = "morning";
+                data.order.list = [];
+                data.order.list.push({});
+                data.order.list[0].id = '123'
+                data.order.list[0].name = '長版大衣'
+                data.order.list[0].price = '10000'
+                data.order.list[0].color = {}
+                data.order.list[0].color.name = '白色'
+                data.order.list[0].color.code = 'ffffff'
+                data.order.list[0].size = 'M'
+                data.order.list[0].qty = '1'
+
+
+                let data_json = JSON.stringify(data);
+                console.log('type data', typeof data);
+                console.log('type data_json', typeof data_json);
+                let accessToken = getCookie('access_token');
+                console.log('accessToken is: ', accessToken)
+
+                function getCookie(cname) {  // cookies checkd, cname input cookie_token_name
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+                }
+
+
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function (){
+                    if (xhr.readyState === 4 && xhr.status === 200){
+                        console.log('xhr.responseText: ', xhr.responseText);
+                        let resultOfXhr = JSON.parse(xhr.responseText);
+                        if(resultOfXhr.error){
+                            alert('付款失敗')
+                        } else{
+                            console.log('購買成功 & order number : ', resultOfXhr.data.number)
+                            window.location.assign("/thankyou.html"); // redirect to index.html page
+                        }
+
+                    }
+                }
+                xhr.open('POST','/api/1.0/order/checkout', true)
+                xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8")
+                xhr.setRequestHeader("Authorization", 'Bearer ' + accessToken);
+                xhr.send(data_json);
+                console.log('data_json',data_json)
+            })
+                
+            }
+            //////// End of tapPay
+
+            let id = getQueryVariable('id')
+            if(getQueryVariable('id')){
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function (){
+                    console.log('id: ', id)
+                    if (xhr.readyState === 4 && xhr.status === 200){
+                        console.log('result of xhr', xhr.responseText)
+                        console.log('typeofresult of xhr', typeof xhr.responseText)
+                        let result = JSON.parse(xhr.responseText)
+                        console.log('result of xhr', result)
+                        console.log('typeofresult of xhr', typeof result)
+                        let htmlContentColor = '<ul class="product_details_text ">顏色｜</ul>';
+                        let htmlContentSize = '<ul class="product_details_text ">尺寸｜</ul>';
+                        let htmlContentDescription = ``;
+
+                        document.querySelector('.product_details_main_image').innerHTML = `<a href=""><img class="product_details_content_imgage" src="${result.data.main_image}"></a>`;
+                        document.querySelector('.product_details_name').innerHTML = `${result.data.title}`
+                        document.querySelector('.product_details_id').innerHTML = `${result.data.id}`
+                        document.querySelector('.product_details_price').innerHTML = `TWD.${result.data.price}`
+
+                        document.querySelector('.product_details_note').innerHTML = `${result.data.note}` //
+                        document.querySelector('.product_details_texture').innerHTML = `${result.data.texture}` //
+                        document.querySelector('.product_details_description').innerHTML = `${result.data.description}` //
+                        document.querySelectorAll('.product_details_place')[0].innerHTML = `素材產地/${result.data.place}` //
+                        document.querySelectorAll('.product_details_place')[1].innerHTML = `加工產地/${result.data.place}` //
+
+
+                        result.data.size.forEach(arr => {
+                            htmlContentSize += `<ul class="product_details_size_options">${arr}</ul>`
+                        })
+                        result.data.colors.forEach(arr2 =>{
+                            htmlContentColor += `<ul class="product_details_color_options" style="background-color: #${arr2.code}"></ul>`
+                        }); // the end of for Each loop;
+                        result.data.images.forEach(image =>{
+                            htmlContentDescription += `<p class="product_details_article_text">${result.data.story}</p>`
+                            htmlContentDescription += `<a href=""><img class="product_details_article_image" src="${image}"></a>`
+
+                        }); // the end of for Each loop;
+
+
+                        document.querySelector('.product_details_color').innerHTML = htmlContentColor;
+                        document.querySelector('.product_details_size').innerHTML = htmlContentSize;
+                        document.querySelector('.product_details_article').innerHTML = htmlContentDescription;
+                    }
+                }
+                xhr.open('GET',`/api/1.0/products/details?id=${id}`)
+                xhr.send() 
+            } else {
+                console.log("error input")
+            }
+            // this function get id 
+            function getQueryVariable(variable){
+                let query = window.location.search.substring(1);
+                let vars = query.split("&");
+                for (let i=0;i<vars.length;i++) {
+                        let pair = vars[i].split("=");
+                        if(pair[0] == variable){return pair[1];}
+                }
+                return(false);
+            }
+            </script>
+    </body>
+</html>
