@@ -41,18 +41,6 @@ client.on('connect', () => {
 });
 
 
-// // connection db (DataBases)
-// const db = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '!@#Ab1233',
-//   database: 'stylish',
-// });
-// db.connect((err) => {
-//   if (err) throw err;
-//   console.log('Mysql on ec2 connected');
-// });
-
 const db = mysql.createPool({
   connectionLimit: 100,
   host: sqlEnv.host,
@@ -60,33 +48,6 @@ const db = mysql.createPool({
   password: sqlEnv.password,
   database: sqlEnv.database,
 });
-
-// //store db_data 備份 db data
-// mysqldump({
-//     connection: {
-//         host: 'localhost',
-//         user: 'root',
-//         password: '!@#Ab1233',
-//         database: 'stylish',
-//     },
-//     dumpToFile: './stylish_dump.sql',
-// })
-//
-// multer module - setup storage information
-
-// // 指定 multer 檔案上傳目錄
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     // eslint-disable-next-line no-undef
-//     cb(null, `${__basedir}/uploads/`);
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${file.fieldname}-${Date.now()}-${file.originalname}`);
-//   },
-// });
-// const upload = multer({ storage });
-// // eslint-disable-next-line no-underscore-dangle
-// global.__basedir = __dirname;
 
 // 設定 multer-s3 資料
 const s3 = new AWS.S3({ // 密碼去找 env內路徑
@@ -108,59 +69,6 @@ const upload = multer({ // 上傳 s3 資料設定
     }
   })
 })
-
-
-// test api
-
-// app.get('/connectTest', (req, res) => {
-//   const pool = mysql.createPool({
-//     connectionLimit: 100,
-//     host: 'localhost',
-//     user: 'root',
-//     password: '!@#Ab1233',
-//     database: 'stylish',
-//   });
-//   // pool.getConnection((err, connection) => {
-//   //   if (err) {
-//   //     res.send(err);
-//   //   } else {
-//   //     connection.query('select * from stylish.product', (err2) => {
-//   //       if (err2) throw err2;
-//   //       console.log(pool._freeConnections.indexOf(connection)); // -1
-//   //       connection.release();
-//   //       console.log(pool._freeConnections.indexOf(connection)); // 0
-//   //     });
-//   //   }
-//   // });
-
-//   pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-//     if (error) throw error;
-//             console.log('1',pool._freeConnections.indexOf(results)); // -1
-//     console.log('The solution is: ', results[0].solution);
-//       console.log('2',pool._freeConnections.indexOf(connection)); // -1
-
-//     pool.query('SELECT 2 + 2 AS solution', function (error, results, fields){
-//       if (error) throw error;
-//       console.log('The solution is: ', results[0].solution);
-//       }
-//   });
-
-// });
-
-app.get('/123', (req,res) =>{
-  db.getConnection((err,connection) => { 
-    connection.query(`select * from stylish.product;`, (err, result) => {
-      connection.release();
-      if (err) throw err;
-      console.log('123');
-      connection.query(`select * from stylish.campaign;`, (err, result1) => {
-        if (err) throw err;
-        console.log(result1);
-        res.send(result1);
-      });
-    });
-  });
-});
 
 
 // API list
@@ -268,58 +176,6 @@ function InputAccessTokenToDB(query, AccessToken, id, provider, name, email, pic
     res.send({ data: SigninResponse });
   });
 }
-
-// app.get('/123', (req, res) => {
-//   db.getConnection((err, conn) => {
-//     conn.query(`select id,picture from stylish.campaign;`, (err, result) => { 
-//       result.forEach(arr => {
-//         var b = arr.picture.slice(23)
-//         console.log(b)
-//         console.log(arr.id)
-//         conn.query(`UPDATE stylish.campaign SET picture = 'https://stylishstored.s3.ap-northeast-1.amazonaws.com/${b}' WHERE id = ${arr.id};`, (err, result) => {
-//           console.log('ok', arr.id);
-//         })
-//       });
-//       conn.release();
-//       res.send(result);
-//     });
-//   });
-// });
-
-
-// app.get('/234', (req, res) => {
-//   db.getConnection((err, conn) => {
-//     conn.query(`select id,image from stylish.image;`, (err, result) => { 
-//       result.forEach(arr => {
-//         var b = arr.image.slice(23)
-//         console.log(b)
-//         console.log(arr.id)
-//         conn.query(`UPDATE stylish.image SET image = 'https://stylishstored.s3.ap-northeast-1.amazonaws.com/${b}' WHERE id = ${arr.id};`, (err, result) => {
-//           console.log('ok', arr.id);
-//         })
-//       });
-//       conn.release();
-//       res.send(result);
-//     });
-//   });
-// });
-
-// app.get('/345', (req, res) => {
-//   db.getConnection((err, conn) => {
-//     conn.query(`select id,main_image from stylish.product;`, (err, result) => { 
-//       result.forEach(arr => {
-//         var b = arr.main_image.slice(23)
-//         console.log(b)
-//         console.log(arr.id)
-//         conn.query(`UPDATE stylish.product SET main_image = 'https://stylishstored.s3.ap-northeast-1.amazonaws.com/${b}' WHERE id = ${arr.id};`, (err, result) => {
-//           console.log('ok', arr.id);
-//         })
-//       });
-//       conn.release();
-//       res.send(result);
-//     });
-//   });
-// });
 
 // Creat callback function for Search_db
 // 1. query product table - resultsOfProduct
